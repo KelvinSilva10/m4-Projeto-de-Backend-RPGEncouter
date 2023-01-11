@@ -32,13 +32,17 @@ campaignRoutes.patch(
   updateCampaignController
 );
 campaignRoutes.get("/:id", ensureAuthMiddleware, getCampaignController);
+campaignRoutes.get(
+  "/:id/players",
+  ensureAuthMiddleware,
+  listPlayersCampaignsController
+);
 campaignRoutes.delete("/:id", ensureAuthMiddleware, deleteCampaignController);
-campaignRoutes.post('/:id', ensureAuthMiddleware, newPlayerCampaignController)
-campaignRoutes.delete('/:id/player',ensureAuthMiddleware, deletePlayerCampaignController)
-campaignRoutes.get('/:id/players',ensureAuthMiddleware, listPlayersCampaignsController)
-
-
-
-
+campaignRoutes.post("/:id", ensureAuthMiddleware, newPlayerCampaignController);
+campaignRoutes.delete(
+  "/:idCampaign/:idPlayer",
+  ensureAuthMiddleware,
+  deletePlayerCampaignController
+);
 
 export default campaignRoutes;

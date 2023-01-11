@@ -48,14 +48,17 @@ const updateCampaignController = async (req: Request, res: Response) => {
 };
 
 const newPlayerCampaignController = async (req: Request, res: Response) => {
-  const idCampaign = req.params.id;
-  const newPlayer = await newPlayerCampaignService(idCampaign);
+  const idCampaign: string = req.params.id;
+  const idUserPlayer: string = req.user.id;
+  const newPlayer = await newPlayerCampaignService(idCampaign, idUserPlayer);
   return res.status(201).json(newPlayer);
 };
 
 const deletePlayerCampaignController = async (req: Request, res: Response) => {
-  const idCampaign = req.params.id;
-  await deletePlayerCampaignService(idCampaign);
+  const idCampaign = req.params.idCampaign;
+  const idUser = req.params.idPlayer;
+
+  await deletePlayerCampaignService(idCampaign, idUser);
   return res.status(204).json({});
 };
 
