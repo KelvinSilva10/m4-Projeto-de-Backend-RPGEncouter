@@ -2,6 +2,8 @@ import { Router } from "express";
 import {
   createUserController,
   deleteUserController,
+  listCampaignsCreateByUserController,
+  listCampaignsPlayedByUserController,
   listUsersController,
   updateUserController,
 } from "../controllers/users.controllers";
@@ -36,6 +38,18 @@ userRoutes.delete(
   ensureAuthMiddleware,
   ensureUserExistsMiddleware,
   deleteUserController
+);
+
+userRoutes.get(
+  "/:id/campaign",
+  ensureAuthMiddleware,
+  listCampaignsCreateByUserController
+);
+
+userRoutes.get(
+  "/:id/player",
+  ensureAuthMiddleware,
+  listCampaignsPlayedByUserController
 );
 
 export default userRoutes;

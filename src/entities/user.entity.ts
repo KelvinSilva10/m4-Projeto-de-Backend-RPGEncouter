@@ -10,6 +10,8 @@ import {
   OneToMany,
   JoinColumn,
 } from "typeorm";
+import { Campaign } from "./campaign.entity";
+import { Player } from "./player.entity";
 
 @Entity("users")
 class User {
@@ -20,13 +22,13 @@ class User {
   name: string;
 
   @Column({ length: 50, unique: true })
+  nick: string;
+
+  @Column({ length: 50, unique: true })
   email: string;
 
   @Column({ length: 120 })
   password: string;
-
-  @Column()
-  isAdm: boolean;
 
   @Column({ default: true })
   isActive: boolean;
@@ -36,6 +38,19 @@ class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({
+    default:
+      "https://play-lh.googleusercontent.com/0RxUnSidXheeQk4fcFCtjysbE_OX_1IwmKXoSA1w3RZQG0so1JNowmyA4mfH9S1Wih0",
+  })
+  profileImg: string;
+
+  @OneToMany(() => Campaign, (campaign) => campaign.campaignMaster)
+  @JoinColumn()
+  campaignMaster: Campaign[];
+
+  @OneToMany(() => Player, (player) => player.player)
+  campaignPlayer: Player[];
 
   @BeforeUpdate()
   @BeforeInsert()

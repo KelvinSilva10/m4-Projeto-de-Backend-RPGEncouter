@@ -7,19 +7,13 @@ import { userWithoutPasswordSerializer } from "../../serializers/user.schemas";
 const updateUserService = async (
   userIdParams: string,
   userData: IUserUpdateRequest,
-  userId: string,
-  userIsAdm: boolean
+  userId: string
 ) => {
-
-  if (userId !== userIdParams && !userIsAdm) {
-    throw new AppError("you must be an adm to update another user", 401);
-  }
   const userRepository = AppDataSource.getRepository(User);
 
   const findUser = await userRepository.findOneBy({
     id: userIdParams,
   });
-
 
   const updateUser = userRepository.create({
     ...findUser,

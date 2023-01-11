@@ -1,27 +1,31 @@
 export interface IUserRequest {
   name: string;
+  nick: string;
   email: string;
   password: string;
-  isAdm: boolean;
+  profileImg?: string;
 }
 
 export interface IUserResponse {
-  name: string;
-  email: string;
   id: string;
+  name: string;
+  nick: string;
+  email: string;
   createdAt: Date;
   updatedAt: Date;
-  isAdm: boolean;
   isActive: boolean;
+  profileImg: string;
 }
 
 export interface IUser {
   id: string;
   name: string;
+  nick: string;
   email: string;
-  isAdm: boolean;
   createdAt: Date;
   updatedAt: Date;
+  isActive: boolean;
+  profileImg: string;
 }
 
 export interface IUserLogin {
@@ -33,4 +37,13 @@ export interface IUserUpdateRequest {
   name?: string;
   email?: string;
   password?: string;
+  nick?: string;
+  profileImg?: string;
+}
+
+export interface IUserUpdateResponse {
+  name?: string;
+  email?: string;
+  nick?: string;
+  profileImg?: string;
 }

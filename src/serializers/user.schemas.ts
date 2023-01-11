@@ -5,37 +5,50 @@ import {
   IUserRequest,
   IUserResponse,
   IUserUpdateRequest,
+  IUserUpdateResponse,
 } from "../interfaces/users";
 
 const userSerializer: SchemaOf<IUserRequest> = yup.object().shape({
-  email: yup.string().email().required(),
   name: yup.string().required(),
+  nick: yup.string().required(),
+  email: yup.string().email().required(),
   password: yup.string().min(4).required(),
-  isAdm: yup.boolean().required(),
+  profileImg: yup.string().notRequired().url(),
 });
 
 const userWithoutPasswordSerializer: SchemaOf<IUserResponse> = yup
   .object()
   .shape({
-    email: yup.string().email().notRequired(),
-    name: yup.string().notRequired(),
     id: yup.string().notRequired(),
+    name: yup.string().notRequired(),
+    nick: yup.string().notRequired(),
+    email: yup.string().email().notRequired(),
     createdAt: yup.date().notRequired(),
     updatedAt: yup.date().notRequired(),
     isActive: yup.boolean().notRequired(),
-    isAdm: yup.boolean().notRequired(),
+    profileImg: yup.string().notRequired().url(),
   });
 
 const userUpdateSerializer: SchemaOf<IUserUpdateRequest> = yup.object().shape({
-  email: yup.string().email().notRequired(),
   name: yup.string().notRequired(),
+  email: yup.string().email().notRequired(),
   password: yup.string().notRequired(),
+  nick: yup.string().notRequired(),
+  profileImg: yup.string().notRequired().url(),
 });
 
-const userWithoutPasswordUpdateSerializer: SchemaOf<IUserUpdateRequest> = yup.object().shape({
-  email: yup.string().email().notRequired(),
-  name: yup.string().notRequired(),
-  password: yup.string().notRequired(),
-});
+const userWithoutPasswordUpdateSerializer: SchemaOf<IUserUpdateResponse> = yup
+  .object()
+  .shape({
+    name: yup.string().notRequired(),
+    email: yup.string().email().notRequired(),
+    nick: yup.string().notRequired(),
+    profileImg: yup.string().notRequired().url(),
+  });
 
-export { userSerializer, userWithoutPasswordSerializer, userUpdateSerializer };
+export {
+  userSerializer,
+  userWithoutPasswordSerializer,
+  userUpdateSerializer,
+  userWithoutPasswordUpdateSerializer,
+};

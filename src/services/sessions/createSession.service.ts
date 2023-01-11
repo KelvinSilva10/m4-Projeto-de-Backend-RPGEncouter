@@ -30,16 +30,10 @@ const createSessionService = async ({
     throw new AppError("Invalid credentials", 403);
   }
 
-  const token = jwt.sign(
-    {
-      isAdm: user.isAdm,
-    },
-    process.env.SECRET_KEY,
-    {
-      subject: user.id,
-      expiresIn: "24h",
-    }
-  );
+  const token = jwt.sign({}, process.env.SECRET_KEY, {
+    subject: user.id,
+    expiresIn: "24h",
+  });
 
   return token;
 };
