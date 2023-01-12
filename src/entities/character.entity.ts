@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from "typeorm";
 import { User } from "./user.entity";
 
@@ -32,10 +33,10 @@ class Character {
   @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
-
   @Column({ default: true })
   isActive: boolean;
+
+  @ManyToOne(() => User, (user) => user.character)
+  user: User;
 }
 export default Character;

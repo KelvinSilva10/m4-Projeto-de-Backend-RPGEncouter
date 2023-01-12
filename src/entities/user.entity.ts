@@ -54,8 +54,7 @@ class User {
   @OneToMany(() => Friend, (friend) => friend.user)
   friends: Friend[];
 
-  @OneToOne(() => Character)
-  @JoinColumn()
+  @OneToMany(() => Character, (character) => character.user)
   character: Character;
 
   @BeforeUpdate()
