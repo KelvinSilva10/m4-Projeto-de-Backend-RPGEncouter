@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import getCharacterService from "../services/characters/getCharacter.service";
 import createFriendService from "../services/friends/createFriend.service";
 
 const createFriendController = async (req: Request, res: Response) => {
