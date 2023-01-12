@@ -14,20 +14,26 @@ import {
 import { Campaign } from "./campaign.entity";
 import { User } from "./user.entity";
 
-@Entity("players")
-class Player {
+@Entity("users_campaigns")
+class UserCampaign {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @ManyToOne(() => User, (user) => user.campaignPlayer)
+  @ManyToOne(() => User, (user) => user.userCampaign)
   @JoinColumn()
-  player: User;
+  user: User;
 
-  @ManyToOne(() => Campaign, (campaign) => campaign.campaignPlayers)
+  @ManyToOne(() => Campaign, (Campaign) => Campaign.campaignPlayers)
   campaign: Campaign;
+
+  @Column()
+  isOwner: boolean;
+
+  @Column({ default: true })
+  isActive: boolean;
 }
 
-export { Player };
+export { UserCampaign };
 
 //yarn typeorm migration:generate -d src/data-source.ts src/migrations/createUsers
 //yarn typeorm migration:run -d src/data-source

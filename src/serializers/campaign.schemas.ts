@@ -6,8 +6,8 @@ import {
 } from "../interfaces/campaign";
 
 const campaignSerializer: SchemaOf<ICampaignRequest> = yup.object().shape({
-  campaignName: yup.string().required(),
-  playersAmount: yup.number().positive().required(),
+  name: yup.string().required(),
+  // playersAmount: yup.number().positive().required(),
   description: yup.string().required(),
   rpgGame: yup.string().required(),
   campaignImg: yup.string().notRequired().url(),
@@ -17,8 +17,7 @@ const campaignSerializer: SchemaOf<ICampaignRequest> = yup.object().shape({
 const campaignUpdateSerializer: SchemaOf<ICampaignUpdateRequest> = yup
   .object()
   .shape({
-    campaignName: yup.string().notRequired(),
-    playersAmount: yup.number().notRequired(),
+    name: yup.string().notRequired(),
     description: yup.string().notRequired(),
     rpgGame: yup.string().notRequired(),
     campaignImg: yup.string().notRequired().url(),

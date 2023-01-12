@@ -20,29 +20,15 @@ const campaignRoutes = Router();
 
 campaignRoutes.post(
   "",
-  ensureAuthMiddleware,
-  ensureDataIsValidMiddleware(campaignSerializer),
+  // ensureAuthMiddleware,
+  // ensureDataIsValidMiddleware(campaignSerializer),
   createCampaignController
 );
 campaignRoutes.get("", ensureAuthMiddleware, listCampaignsController);
-campaignRoutes.patch(
-  "/:id",
-  ensureAuthMiddleware,
-  ensureDataIsValidMiddleware(campaignUpdateSerializer),
-  updateCampaignController
-);
+
 campaignRoutes.get("/:id", ensureAuthMiddleware, getCampaignController);
-campaignRoutes.get(
-  "/:id/players",
-  ensureAuthMiddleware,
-  listPlayersCampaignsController
-);
+
 campaignRoutes.delete("/:id", ensureAuthMiddleware, deleteCampaignController);
 campaignRoutes.post("/:id", ensureAuthMiddleware, newPlayerCampaignController);
-campaignRoutes.delete(
-  "/:idCampaign/:idPlayer",
-  ensureAuthMiddleware,
-  deletePlayerCampaignController
-);
 
 export default campaignRoutes;

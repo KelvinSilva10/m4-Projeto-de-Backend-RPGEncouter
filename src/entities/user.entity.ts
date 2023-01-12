@@ -9,9 +9,12 @@ import {
   BeforeInsert,
   OneToMany,
   JoinColumn,
+  OneToOne,
 } from "typeorm";
 import { Campaign } from "./campaign.entity";
-import { Player } from "./player.entity";
+import { UserCampaign } from "./userCampaign.entity";
+import Friend from "./friends.entity";
+import Character from "./character.entity";
 
 @Entity("users")
 class User {
@@ -45,12 +48,15 @@ class User {
   })
   profileImg: string;
 
-  @OneToMany(() => Campaign, (campaign) => campaign.campaignMaster)
-  @JoinColumn()
-  campaignMaster: Campaign[];
+  @OneToMany(() => UserCampaign, (userCampaign) => userCampaign.user)
+  userCampaign: UserCampaign[];
 
-  @OneToMany(() => Player, (player) => player.player)
-  campaignPlayer: Player[];
+  @OneToMany(() => Friend, (friend) => friend.user)
+  friends: Friend[];
+
+  @OneToOne(() => Character)
+  @JoinColumn()
+  character: Character;
 
   @BeforeUpdate()
   @BeforeInsert()

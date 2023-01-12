@@ -1,18 +1,18 @@
 import { IUser } from "../users";
 
 export interface ICampaignRequest {
-  campaignName?: string;
-  playersAmount?: number;
-  description?: string;
-  rpgGame?: string;
-  campaignImg?: string;
-  plataform?: string;
+  name: string;
+  // playersAmount?: number;
+  description: string;
+  rpgGame: string;
+  campaignImg: string;
+  plataform: string;
 }
 
 export interface ICampaignResponse {
   id: string;
-  campaignName: string;
-  playersAmount: number;
+  name: string;
+  // playersAmount: number;
   description: string;
   rpgGame: string;
   campaignImg: string;
@@ -20,12 +20,11 @@ export interface ICampaignResponse {
   createdAt: Date;
   updatedAt: Date;
   isActive: boolean;
-  campaignMaster: IUser;
+  campaignPlayers: IUser;
 }
 
 export interface ICampaignUpdateRequest {
-  campaignName?: string;
-  playersAmount?: number;
+  name?: string;
   description?: string;
   rpgGame?: string;
   campaignImg?: string;
