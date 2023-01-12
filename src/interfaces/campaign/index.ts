@@ -1,12 +1,12 @@
 import { IUser } from "../users";
 
 export interface ICampaignRequest {
-  campaignName: string;
-  playersAmount: number;
-  description: string;
-  rpgGame: string;
+  campaignName?: string;
+  playersAmount?: number;
+  description?: string;
+  rpgGame?: string;
   campaignImg?: string;
-  plataform: string;
+  plataform?: string;
 }
 
 export interface ICampaignResponse {
