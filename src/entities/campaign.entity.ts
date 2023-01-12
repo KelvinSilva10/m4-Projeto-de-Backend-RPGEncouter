@@ -11,7 +11,7 @@ import {
   ManyToOne,
   OneToOne,
 } from "typeorm";
-import { Player } from "./player.entity";
+import { UserCampaign } from "./userCampaign.entity";
 import { User } from "./user.entity";
 
 @Entity("campaigns")
@@ -20,10 +20,7 @@ class Campaign {
   id: string;
 
   @Column({ length: 50 })
-  campaignName: string;
-
-  @Column({ type: "integer" })
-  playersAmount: number;
+  name: string;
 
   @Column({ length: 3000 })
   description: string;
@@ -50,13 +47,9 @@ class Campaign {
   @Column({ default: true })
   isActive: boolean;
 
-  @ManyToOne(() => User, (user) => user.campaignMaster)
+  @OneToMany(() => UserCampaign, (player) => player.campaign)
   @JoinColumn()
-  campaignMaster: User;
-
-  @OneToMany(() => Player, (player) => player.campaign)
-  @JoinColumn()
-  campaignPlayers: Player[];
+  campaignPlayers: UserCampaign[];
 }
 
 export { Campaign };

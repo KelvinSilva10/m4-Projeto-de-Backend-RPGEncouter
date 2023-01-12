@@ -3,7 +3,7 @@ import { Campaign } from "../../entities/campaign.entity";
 import { AppError } from "../../errors/AppError";
 import { ICampaignResponse } from "../../interfaces/campaign";
 
-const listCampaignsService = async (): Promise<ICampaignResponse[]> => {
+const listCampaignsService = async (): Promise<{}> => {
   const campaignRepo = AppDataSource.getRepository(Campaign);
   const listCampaign = await campaignRepo.find();
 

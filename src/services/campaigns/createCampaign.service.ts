@@ -7,7 +7,7 @@ import { userWithoutPasswordSerializer } from "../../serializers/user.schemas";
 
 const createCampaignService = async (
   userData: ICampaignRequest
-): Promise<ICampaignResponse> => {
+): Promise<{}> => {
   //CÓDIGO AQUI
 
   const campaignRepo = AppDataSource.getRepository(Campaign);

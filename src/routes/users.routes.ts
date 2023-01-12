@@ -26,12 +26,10 @@ userRoutes.post(
   createUserController
 );
 userRoutes.get("", ensureAuthMiddleware, listUsersController);
-userRoutes.patch(
+userRoutes.get(
   "/:id",
   ensureAuthMiddleware,
-  ensureUserExistsMiddleware,
-  ensureDataIsValidMiddleware(userUpdateSerializer),
-  updateUserController
+  listCampaignsPlayedByUserController
 );
 userRoutes.delete(
   "/:id",
@@ -39,17 +37,12 @@ userRoutes.delete(
   ensureUserExistsMiddleware,
   deleteUserController
 );
-
-userRoutes.get(
-  "/:id/campaign",
-  ensureAuthMiddleware,
-  listCampaignsCreateByUserController
-);
-
-userRoutes.get(
-  "/:id/player",
-  ensureAuthMiddleware,
-  listCampaignsPlayedByUserController
-);
+// userRoutes.patch(
+//   "/:id",
+//   ensureAuthMiddleware,
+//   ensureUserExistsMiddleware,
+//   ensureDataIsValidMiddleware(userUpdateSerializer),
+//   updateUserController
+// );
 
 export default userRoutes;
