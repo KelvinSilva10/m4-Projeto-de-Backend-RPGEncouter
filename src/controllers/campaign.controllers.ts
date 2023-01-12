@@ -12,7 +12,9 @@ import updateCampaignService from "../services/campaigns/updateCampaign.service"
 
 const createCampaignController = async (req: Request, res: Response) => {
   const campaignData: ICampaignRequest = req.body;
-  const newCampaign = await createCampaignService(campaignData);
+  const userId: string = req.user.id;
+
+  const newCampaign = await createCampaignService(campaignData, userId);
   return res.status(201).json(newCampaign);
 };
 
@@ -23,13 +25,15 @@ const listCampaignsController = async (req: Request, res: Response) => {
 };
 
 const getCampaignController = async (req: Request, res: Response) => {
-  const campaign = await getCampaignService();
+  const idCampaign = req.params.id;
+  const campaign = await getCampaignService(idCampaign);
 
   return res.json(campaign);
 };
 
 const deleteCampaignController = async (req: Request, res: Response) => {
-  await deleteCampaignService(req.params.id);
+  const idCampaign: string = req.params.id;
+  await deleteCampaignService(idCampaign);
   return res.status(204).json({});
 };
 
@@ -48,7 +52,7 @@ const updateCampaignController = async (req: Request, res: Response) => {
 };
 
 const newPlayerCampaignController = async (req: Request, res: Response) => {
-  const idCampaign: string = req.params.id;
+  const idCampaign: string = req.params.idCampaign;
   const idUserPlayer: string = req.user.id;
   const newPlayer = await newPlayerCampaignService(idCampaign, idUserPlayer);
   return res.status(201).json(newPlayer);

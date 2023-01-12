@@ -1,3 +1,4 @@
+import { UserCampaign } from "../../entities/userCampaign.entity";
 import { IUser } from "../users";
 
 export interface ICampaignRequest {
@@ -7,6 +8,7 @@ export interface ICampaignRequest {
   rpgGame: string;
   campaignImg: string;
   plataform: string;
+  campaignPlayers?: UserCampaign[];
 }
 
 export interface ICampaignResponse {
@@ -20,7 +22,8 @@ export interface ICampaignResponse {
   createdAt: Date;
   updatedAt: Date;
   isActive: boolean;
-  campaignPlayers: IUser;
+  // campaignPlayers: IUser;
+  campaignPlayers: UserCampaign[];
 }
 
 export interface ICampaignUpdateRequest {

@@ -20,7 +20,7 @@ const campaignRoutes = Router();
 
 campaignRoutes.post(
   "",
-  // ensureAuthMiddleware,
+  ensureAuthMiddleware,
   // ensureDataIsValidMiddleware(campaignSerializer),
   createCampaignController
 );
@@ -29,6 +29,12 @@ campaignRoutes.get("", ensureAuthMiddleware, listCampaignsController);
 campaignRoutes.get("/:id", ensureAuthMiddleware, getCampaignController);
 
 campaignRoutes.delete("/:id", ensureAuthMiddleware, deleteCampaignController);
-campaignRoutes.post("/:id", ensureAuthMiddleware, newPlayerCampaignController);
+
+///REVISAR ROTA DO TROLLO
+campaignRoutes.post(
+  "/:idCampaign",
+  ensureAuthMiddleware,
+  newPlayerCampaignController
+);
 
 export default campaignRoutes;
