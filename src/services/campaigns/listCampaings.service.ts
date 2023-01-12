@@ -5,7 +5,14 @@ import { ICampaignResponse } from "../../interfaces/campaign";
 
 const listCampaignsService = async (): Promise<{}> => {
   const campaignRepo = AppDataSource.getRepository(Campaign);
-  const listCampaign = await campaignRepo.find();
+
+  const listCampaign = await campaignRepo
+    .createQueryBuilder("campaigns")
+    .innerJoinAndSelect("campaigns.campaignPlayers", "campaignPlayers")
+    .innerJoinAndSelect("campaignPlayers.user", "user")
+    .where("campaigns.isActive = true")
+    .select()
+    .getMany();
 
   return listCampaign;
 };
