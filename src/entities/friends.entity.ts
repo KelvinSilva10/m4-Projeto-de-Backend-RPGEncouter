@@ -9,7 +9,7 @@ class Friend {
   @Column()
   nick: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.friends)
   user: User;
 }
 
