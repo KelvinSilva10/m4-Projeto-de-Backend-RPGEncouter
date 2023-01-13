@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
-import { AppError } from "../errors/AppError";
 import { IUserRequest, IUserUpdateRequest } from "../interfaces/users";
 import createUserService from "../services/users/createUser.service";
 import deleteUserService from "../services/users/deleteUser.service";
-import listCampaignsCreateByUserService from "../services/users/listCampaignsCreateByUser.service";
-import listCampaignsPlayedByUserService from "../services/users/listCampaignsPlayedByUser.service";
 import listUsersService from "../services/users/listUsers.service";
 import updateUserService from "../services/users/updateUser.service";
 
@@ -35,29 +32,9 @@ const updateUserController = async (req: Request, res: Response) => {
   return res.json(updateUser);
 };
 
-const listCampaignsCreateByUserController = async (
-  req: Request,
-  res: Response
-) => {
-  const users = await listCampaignsCreateByUserService();
-
-  return res.json(users);
-};
-
-const listCampaignsPlayedByUserController = async (
-  req: Request,
-  res: Response
-) => {
-  const users = await listCampaignsPlayedByUserService();
-
-  return res.json(users);
-};
-
 export {
   createUserController,
   listUsersController,
   deleteUserController,
   updateUserController,
-  listCampaignsCreateByUserController,
-  listCampaignsPlayedByUserController,
 };

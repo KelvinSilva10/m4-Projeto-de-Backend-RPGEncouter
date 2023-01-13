@@ -20,17 +20,18 @@ const createSessionService = async ({
     throw new AppError("User or password invalid", 401);
   }
 
-  if (user.isActive === false) {
-    throw new AppError("User is not active", 400);
-  }
-
   const passwordMatch = await compare(password, user.password);
 
   if (!passwordMatch) {
     throw new AppError("Invalid credentials", 403);
   }
 
-  const token = jwt.sign({}, process.env.SECRET_KEY, {
+  const token = jwt.sign({
+
+    isActive: user.isActive
+
+  }, 
+  process.env.SECRET_KEY, {
     subject: user.id,
     expiresIn: "24h",
   });

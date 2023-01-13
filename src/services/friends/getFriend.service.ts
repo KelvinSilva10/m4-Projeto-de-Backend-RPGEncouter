@@ -1,5 +1,4 @@
 import { User } from "../../entities/user.entity";
-import { AppError } from "../../errors/AppError";
 import AppDataSource from "./../../data-source";
 
 const getFriendService = async (userId: string) => {

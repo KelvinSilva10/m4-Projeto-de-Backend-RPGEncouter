@@ -1,6 +1,5 @@
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
-import { AppError } from "../../errors/AppError";
 import { IUserUpdateRequest } from "../../interfaces/users";
 import { userWithoutPasswordSerializer } from "../../serializers/user.schemas";
 

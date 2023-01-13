@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createSessionController } from "../controllers/session.controller";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
+import ensureUserIsActive from "../middlewares/users/ensureUserIsActive.middleware";
 import { createSessionSchema } from "../serializers/session.schemas";
 
 const sessionRoutes = Router();
@@ -8,6 +9,7 @@ const sessionRoutes = Router();
 sessionRoutes.post(
   "",
   ensureDataIsValidMiddleware(createSessionSchema),
+  ensureUserIsActive,
   createSessionController
 );
 

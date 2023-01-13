@@ -2,19 +2,17 @@ import { Router } from "express";
 import {
   createUserController,
   deleteUserController,
-  listCampaignsCreateByUserController,
-  listCampaignsPlayedByUserController,
   listUsersController,
   updateUserController,
 } from "../controllers/users.controllers";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 
-import ensureUserAlreadyExistsMiddleware from "../middlewares/ensureUserAlreadyExistsMiddleware";
-import ensureUserExistsMiddleware from "../middlewares/ensureUserExistsMiddleware";
+import ensureUserAlreadyExistsMiddleware from "../middlewares/users/ensureUserAlreadyExists.middleware";
+import ensureUserExistsMiddleware from "../middlewares/users/ensureUserExists.middleware";
+import ensureUserIsActive from "../middlewares/users/ensureUserIsActive.middleware";
 import {
   userSerializer,
-  userUpdateSerializer,
 } from "../serializers/user.schemas";
 
 const userRoutes = Router();
@@ -26,14 +24,15 @@ userRoutes.post(
   createUserController
 );
 userRoutes.get("", ensureAuthMiddleware, listUsersController);
-userRoutes.get(
+userRoutes.patch(
   "/:id",
   ensureAuthMiddleware,
-  listCampaignsPlayedByUserController
+  updateUserController
 );
 userRoutes.delete(
   "/:id",
   ensureAuthMiddleware,
+  ensureUserIsActive,
   ensureUserExistsMiddleware,
   deleteUserController
 );

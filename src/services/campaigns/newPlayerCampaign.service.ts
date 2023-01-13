@@ -10,7 +10,6 @@ const newPlayerCampaignService = async (
   idCampaign: string,
   idUserPlayer: string
 ): Promise<{}> => {
-  //CÓDIGO AQUI
 
   const campaignRepo = AppDataSource.getRepository(Campaign);
   const userRepo = AppDataSource.getRepository(User);
@@ -26,7 +25,7 @@ const newPlayerCampaignService = async (
 
   await userCampaignRepo.save(userCampaign);
 
-  return { message: " player add " };
+  return { message: "Player add" };
 };
 
 export default newPlayerCampaignService;

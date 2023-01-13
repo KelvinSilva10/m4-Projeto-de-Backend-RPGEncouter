@@ -1,5 +1,4 @@
 import AppDataSource from "../../data-source";
-import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 import Character from "./../../entities/character.entity";
 
