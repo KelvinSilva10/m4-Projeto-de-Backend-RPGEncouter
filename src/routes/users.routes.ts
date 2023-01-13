@@ -37,12 +37,5 @@ userRoutes.delete(
   ensureUserExistsMiddleware,
   deleteUserController
 );
-// userRoutes.patch(
-//   "/:id",
-//   ensureAuthMiddleware,
-//   ensureUserExistsMiddleware,
-//   ensureDataIsValidMiddleware(userUpdateSerializer),
-//   updateUserController
-// );
 
 export default userRoutes;

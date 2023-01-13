@@ -6,12 +6,18 @@ import { IUser, IUserResponse } from "../../interfaces/users";
 const listUsersService = async (): Promise<IUserResponse[]> => {
   const userRepository = AppDataSource.getRepository(User);
 
-  const users = await userRepository.find();
+  const users = await userRepository.find({
+    relations: {
+      friends: true,
+    },
+  });
 
   const usersNotPassword = users.map((user) => {
     const { password, ...notPassWord } = user;
     return notPassWord;
   });
+
+  //FAZER YUP RETIRANDO O PASSWORD! --GUILHERME
 
   return usersNotPassword;
 };
