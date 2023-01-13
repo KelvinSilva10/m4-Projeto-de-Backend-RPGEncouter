@@ -6,8 +6,6 @@ import { userWithoutPasswordSerializer } from "../../serializers/user.schemas";
 const createUserService = async (
   userData: IUserRequest
 ): Promise<IUserResponse> => {
-  console.log('chegou na criação do usuário');
-  
   const userRepository = AppDataSource.getRepository(User);
 
   const createdUser = userRepository.create(userData);
@@ -20,7 +18,7 @@ const createUserService = async (
     }
   );
 
-  return userWithoutPassord
+  return userWithoutPassord;
 };
 
 export default createUserService;
