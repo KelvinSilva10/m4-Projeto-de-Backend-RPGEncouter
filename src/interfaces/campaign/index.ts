@@ -8,7 +8,7 @@ export interface ICampaignRequest {
   rpgGame: string;
   campaignImg: string;
   plataform: string;
-  campaignPlayers?: UserCampaign[];
+  // campaignPlayers?: UserCampaign[];
 }
 
 export interface ICampaignResponse {
@@ -23,7 +23,7 @@ export interface ICampaignResponse {
   updatedAt: Date;
   isActive: boolean;
   // campaignPlayers: IUser;
-  campaignPlayers: UserCampaign[];
+  // campaignPlayers: UserCampaign[];
 }
 
 export interface ICampaignUpdateRequest {
