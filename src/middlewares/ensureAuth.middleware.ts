@@ -26,6 +26,7 @@ const ensureAuthMiddleware = async (
 
     req.user = {
       id: decoded.sub as string,
+      isActive: decoded.isActive
     };
 
     return next();

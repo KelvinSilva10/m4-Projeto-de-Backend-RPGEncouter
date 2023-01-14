@@ -2,9 +2,7 @@ import AppDataSource from "../../data-source";
 import { Campaign } from "../../entities/campaign.entity";
 import { User } from "../../entities/user.entity";
 import { UserCampaign } from "../../entities/userCampaign.entity";
-import { ICampaignRequest, ICampaignResponse } from "../../interfaces/campaign";
-import { IUserRequest, IUserResponse } from "../../interfaces/users";
-import { userWithoutPasswordSerializer } from "../../serializers/user.schemas";
+import { ICampaignRequest } from "../../interfaces/campaign";
 
 const createCampaignService = async (
   campaignData: ICampaignRequest,

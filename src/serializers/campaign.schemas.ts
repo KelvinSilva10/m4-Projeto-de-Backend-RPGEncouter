@@ -8,7 +8,6 @@ import {
 
 const campaignSerializer: SchemaOf<ICampaignRequest> = yup.object().shape({
   name: yup.string().required(),
-  // playersAmount: yup.number().positive().required(),
   description: yup.string().required(),
   rpgGame: yup.string().required(),
   campaignImg: yup.string().notRequired().url(),

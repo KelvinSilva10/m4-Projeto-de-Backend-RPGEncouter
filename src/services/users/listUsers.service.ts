@@ -10,6 +10,9 @@ const listUsersService = async (): Promise<IUserResponse[]> => {
     relations: {
       friends: true,
     },
+    where: {
+      isActive: true,
+    },
   });
 
   const usersNotPassword = users.map((user) => {

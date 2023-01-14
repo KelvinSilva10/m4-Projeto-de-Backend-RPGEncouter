@@ -2,18 +2,17 @@ import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
-const deleteUserService = async (id: string) => {
- 
+const deleteUserService = async (idUserDelete: string, idUser: string) => {
   const userRepository = AppDataSource.getRepository(User);
-  const user = await userRepository.findOneBy({ id: id });
 
-  if (!user.isActive) {
-    throw new AppError("user must be active", 400);
+  if (idUserDelete !== idUser) {
+    throw new AppError("You dont have permission", 403);
   }
+
+  const user = await userRepository.findOneBy({ id: idUserDelete });
 
   user.isActive = false;
   await userRepository.save(user);
-  return {};
 };
 
 export default deleteUserService;

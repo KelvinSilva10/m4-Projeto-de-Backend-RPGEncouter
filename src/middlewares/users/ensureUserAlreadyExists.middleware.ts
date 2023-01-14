@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import AppDataSource from "../data-source";
-import { User } from "../entities/user.entity";
+import AppDataSource from "../../data-source";
+import { User } from "../../entities/user.entity";
+import { AppError } from "../../errors/AppError";
 
 const ensureUserAlreadyExistsMiddleware = async (
   req: Request,
@@ -10,14 +11,17 @@ const ensureUserAlreadyExistsMiddleware = async (
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOneBy({ email: req.body.email });
+  const userByNick = await userRepository.findOneBy({ nick: req.body.nick });
 
   if (user) {
-    return res.status(409).json({
-      message: "User already exists",
-    });
+    throw new AppError("This email already exists", 401);
   }
 
-  return next();
+  if (userByNick) {
+    throw new AppError("This nick already exists", 401);
+  }
+
+  next();
 };
 
 export default ensureUserAlreadyExistsMiddleware;

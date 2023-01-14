@@ -2,38 +2,43 @@ import { Router } from "express";
 import {
   createCampaignController,
   deleteCampaignController,
-  deletePlayerCampaignController,
   getCampaignController,
   listCampaignsController,
-  listPlayersCampaignsController,
   newPlayerCampaignController,
-  updateCampaignController,
 } from "../controllers/campaign.controllers";
+import validadeCampaign from "../middlewares/campaigns/validateCampaign.middleware";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
-import {
-  campaignSerializer,
-  campaignUpdateSerializer,
-} from "../serializers/campaign.schemas";
+import { campaignSerializer } from "../serializers/campaign.schemas";
 
 const campaignRoutes = Router();
 
 campaignRoutes.post(
   "",
   ensureAuthMiddleware,
-  // ensureDataIsValidMiddleware(campaignSerializer),
+  ensureDataIsValidMiddleware(campaignSerializer),
   createCampaignController
 );
 campaignRoutes.get("", ensureAuthMiddleware, listCampaignsController);
 
-campaignRoutes.get("/:id", ensureAuthMiddleware, getCampaignController);
-
-campaignRoutes.delete("/:id", ensureAuthMiddleware, deleteCampaignController);
-
-///REVISAR ROTA DO TROLLO
-campaignRoutes.post(
-  "/:idCampaign",
+campaignRoutes.get(
+  "/:id",
   ensureAuthMiddleware,
+  validadeCampaign,
+  getCampaignController
+);
+
+campaignRoutes.delete(
+  "/:id",
+  ensureAuthMiddleware,
+  validadeCampaign,
+  deleteCampaignController
+);
+
+campaignRoutes.post(
+  "/:id",
+  ensureAuthMiddleware,
+  validadeCampaign,
   newPlayerCampaignController
 );
 
