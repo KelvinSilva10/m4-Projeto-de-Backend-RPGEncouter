@@ -4,11 +4,14 @@ import { User } from "../../entities/user.entity";
 import validate from "uuid-validate";
 import { AppError } from "../../errors/AppError";
 
-const ensureUserExistsMiddleware = async (req: Request,res: Response,next: NextFunction) => {
-
+const ensureUserExistsMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (!validate(req.params.id)) {
-    throw new AppError("User not exist", 401)
-  };
+    throw new AppError("User not exist", 404);
+  }
 
   const userRepository = AppDataSource.getRepository(User);
 
@@ -17,11 +20,10 @@ const ensureUserExistsMiddleware = async (req: Request,res: Response,next: NextF
   });
 
   if (!findUser) {
-      throw new AppError("User already exist", 401)
-    };
-
-  next();
+    throw new AppError("User not exist", 404);
   }
 
+  next();
+};
 
 export default ensureUserExistsMiddleware;

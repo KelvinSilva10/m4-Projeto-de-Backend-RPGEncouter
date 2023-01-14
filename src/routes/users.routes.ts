@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createUserController,
   deleteUserController,
+  getUserController,
   listUsersController,
   updateUserController,
 } from "../controllers/users.controllers";
@@ -11,9 +12,7 @@ import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middle
 import ensureUserAlreadyExistsMiddleware from "../middlewares/users/ensureUserAlreadyExists.middleware";
 import ensureUserExistsMiddleware from "../middlewares/users/ensureUserExists.middleware";
 import ensureUserIsActive from "../middlewares/users/ensureUserIsActive.middleware";
-import {
-  userSerializer,
-} from "../serializers/user.schemas";
+import { userSerializer } from "../serializers/user.schemas";
 
 const userRoutes = Router();
 
@@ -24,16 +23,19 @@ userRoutes.post(
   createUserController
 );
 userRoutes.get("", ensureAuthMiddleware, listUsersController);
-userRoutes.patch(
+userRoutes.get(
   "/:id",
   ensureAuthMiddleware,
-  updateUserController
+  ensureUserExistsMiddleware,
+  ensureUserIsActive,
+  getUserController
 );
+userRoutes.patch("/:id", ensureAuthMiddleware, updateUserController);
 userRoutes.delete(
   "/:id",
   ensureAuthMiddleware,
-  ensureUserIsActive,
   ensureUserExistsMiddleware,
+  ensureUserIsActive,
   deleteUserController
 );
 

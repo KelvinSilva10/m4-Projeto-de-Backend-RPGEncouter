@@ -9,7 +9,6 @@ const sessionRoutes = Router();
 sessionRoutes.post(
   "",
   ensureDataIsValidMiddleware(createSessionSchema),
-  ensureUserIsActive,
   createSessionController
 );
 
