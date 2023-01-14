@@ -8,13 +8,15 @@ import {
 } from "../controllers/campaign.controllers";
 import validadeCampaign from "../middlewares/campaigns/validateCampaign.middleware";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
+import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
+import { campaignSerializer } from "../serializers/campaign.schemas";
 
 const campaignRoutes = Router();
 
 campaignRoutes.post(
   "",
   ensureAuthMiddleware,
-  // ensureDataIsValidMiddleware(campaignSerializer),
+  ensureDataIsValidMiddleware(campaignSerializer),
   createCampaignController
 );
 campaignRoutes.get("", ensureAuthMiddleware, listCampaignsController);
