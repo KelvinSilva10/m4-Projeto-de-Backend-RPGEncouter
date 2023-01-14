@@ -21,13 +21,24 @@ campaignRoutes.post(
 );
 campaignRoutes.get("", ensureAuthMiddleware, listCampaignsController);
 
-campaignRoutes.get("/:id", ensureAuthMiddleware, validadeCampaign, getCampaignController);
+campaignRoutes.get(
+  "/:id",
+  ensureAuthMiddleware,
+  validadeCampaign,
+  getCampaignController
+);
 
-campaignRoutes.delete("/:id", ensureAuthMiddleware, validadeCampaign, deleteCampaignController);
+campaignRoutes.delete(
+  "/:id",
+  ensureAuthMiddleware,
+  validadeCampaign,
+  deleteCampaignController
+);
 
 campaignRoutes.post(
-  "/:idCampaign",
+  "/:id",
   ensureAuthMiddleware,
+  validadeCampaign,
   newPlayerCampaignController
 );
 

@@ -29,12 +29,13 @@ const getCampaignController = async (req: Request, res: Response) => {
 
 const deleteCampaignController = async (req: Request, res: Response) => {
   const idCampaign: string = req.params.id;
-  await deleteCampaignService(idCampaign);
+  const idUser: string = req.user.id;
+  await deleteCampaignService(idCampaign, idUser);
   return res.status(204).json({});
 };
 
 const newPlayerCampaignController = async (req: Request, res: Response) => {
-  const idCampaign: string = req.params.idCampaign;
+  const idCampaign: string = req.params.id;
   const idUserPlayer: string = req.user.id;
   const newPlayer = await newPlayerCampaignService(idCampaign, idUserPlayer);
   return res.status(201).json(newPlayer);

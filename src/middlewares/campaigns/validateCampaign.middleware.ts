@@ -10,7 +10,7 @@ const validadeCampaign = async (
 ) => {
   const campaignRepo = AppDataSource.getRepository(Campaign);
 
-  const validate = require("uuid-validate");
+  let validate = require("uuid-validate");
 
   if (!validate(req.params.id)) {
     throw new AppError("Campaign not exist", 404);
