@@ -55,7 +55,7 @@ class User {
   friends: Friend[];
 
   @OneToMany(() => Character, (character) => character.user)
-  character: Character;
+  character: Character[];
 
   @BeforeUpdate()
   @BeforeInsert()

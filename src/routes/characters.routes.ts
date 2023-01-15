@@ -5,16 +5,19 @@ import {
   getCharacterController,
 } from "../controllers/characters.controllers";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
-import characterNameAlreadUsedMiddleware from "./../middlewares/character/characterNameAlreadUsed.middleware";
+import ensureUserHasCharacter from "../middlewares/character/ensureUserHasCharacter.middleware";
 import ensureCharacterAlreadyExists from "./../middlewares/character/ensureCharacterAlreadyExists.middleware";
 import ensureUserCharacterIsOwner from "./../middlewares/character/ensureUserCharacterIsOwner.middleware";
+import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
+import { characterSerializer } from "../serializers/character.schemas";
 
 const charactersRoute = Router();
 
 charactersRoute.post(
   "",
   ensureAuthMiddleware,
-  characterNameAlreadUsedMiddleware,
+  ensureUserHasCharacter,
+  ensureDataIsValidMiddleware(characterSerializer),
   createCharacterController
 );
 charactersRoute.get(
