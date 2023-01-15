@@ -3,7 +3,7 @@ import AppDataSource from "../../data-source";
 import Character from "../../entities/character.entity";
 import { AppError } from "../../errors/AppError";
 
-const ensureCharacterAlreadyExists = async (
+const ensureCharacterAlreadyExistsMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -28,4 +28,4 @@ const ensureCharacterAlreadyExists = async (
   return next();
 };
 
-export default ensureCharacterAlreadyExists;
+export default ensureCharacterAlreadyExistsMiddleware;

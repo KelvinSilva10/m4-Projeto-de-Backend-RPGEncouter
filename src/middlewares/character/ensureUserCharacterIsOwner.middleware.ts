@@ -4,7 +4,7 @@ import Character from "../../entities/character.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
-const ensureUserCharacterIsOwner = async (
+const ensureUserCharacterIsOwnerMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -31,4 +31,4 @@ const ensureUserCharacterIsOwner = async (
   return next();
 };
 
-export default ensureUserCharacterIsOwner;
+export default ensureUserCharacterIsOwnerMiddleware;

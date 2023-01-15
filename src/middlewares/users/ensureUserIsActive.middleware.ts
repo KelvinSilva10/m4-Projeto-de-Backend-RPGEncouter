@@ -3,7 +3,7 @@ import { AppError } from "../../errors/AppError";
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 
-const ensureUserIsActive = async (
+const ensureUserIsActiveMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -18,4 +18,4 @@ const ensureUserIsActive = async (
   next();
 };
 
-export default ensureUserIsActive;
+export default ensureUserIsActiveMiddleware;

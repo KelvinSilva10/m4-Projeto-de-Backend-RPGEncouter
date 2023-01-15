@@ -3,7 +3,7 @@ import AppDataSource from "../../data-source";
 import { Campaign } from "../../entities/campaign.entity";
 import { AppError } from "../../errors/AppError";
 
-const validadeCampaign = async (
+const ensureIsValidateCampaignMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -33,4 +33,4 @@ const validadeCampaign = async (
   next();
 };
 
-export default validadeCampaign;
+export default ensureIsValidateCampaignMiddleware;

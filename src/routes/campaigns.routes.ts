@@ -6,7 +6,7 @@ import {
   listCampaignsController,
   newPlayerCampaignController,
 } from "../controllers/campaign.controllers";
-import validadeCampaign from "../middlewares/campaigns/validateCampaign.middleware";
+import ensureIsValidateCampaignMiddleware from "../middlewares/campaigns/ensureIsValidateCampaign.middleware";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 import { campaignSerializer } from "../serializers/campaign.schemas";
@@ -24,21 +24,21 @@ campaignRoutes.get("", ensureAuthMiddleware, listCampaignsController);
 campaignRoutes.get(
   "/:id",
   ensureAuthMiddleware,
-  validadeCampaign,
+  ensureIsValidateCampaignMiddleware,
   getCampaignController
 );
 
 campaignRoutes.delete(
   "/:id",
   ensureAuthMiddleware,
-  validadeCampaign,
+  ensureIsValidateCampaignMiddleware,
   deleteCampaignController
 );
 
 campaignRoutes.post(
   "/:id",
   ensureAuthMiddleware,
-  validadeCampaign,
+  ensureIsValidateCampaignMiddleware,
   newPlayerCampaignController
 );
 

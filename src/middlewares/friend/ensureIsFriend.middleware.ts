@@ -4,13 +4,22 @@ import Friend from "../../entities/friends.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
-const ensureNickExistsMiddleware = async (
+const ensureIsFriendMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const userRepo = AppDataSource.getRepository(User);
   const friend = await userRepo.findOneBy({ nick: req.body.nick });
+
+  const user = await userRepo.findOne({
+    where: {
+      id: req.user.id,
+    },
+    relations: {
+      friends: true,
+    },
+  });
 
   if (!friend) {
     throw new AppError("Nick not found", 404);
@@ -20,15 +29,15 @@ const ensureNickExistsMiddleware = async (
     throw new AppError("User is not active", 404);
   }
 
-  // const verifyFriends = user.friends.find(
-  //   (friends) => friends.nick === friend.nick
-  // );
+  const verifyFriends = user.friends.find(
+    (friends) => friends.nick === friend.nick
+  );
 
-  // if (verifyFriends) {
-  //   throw new AppError("You are already friends", 409);
-  // }
+  if (!verifyFriends) {
+    throw new AppError("You are not friends", 404);
+  }
 
   next();
 };
 
-export default ensureNickExistsMiddleware;
+export default ensureIsFriendMiddleware;

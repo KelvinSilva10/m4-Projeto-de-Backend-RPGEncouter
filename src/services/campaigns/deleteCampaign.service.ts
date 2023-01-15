@@ -18,7 +18,11 @@ const deleteCampaignService = async (idCampaign: string, idUser: string) => {
     .andWhere("user.isActive = true")
     .getOne();
 
-  if (campaign.campaignPlayers[0].user.id !== idUser) {
+  const masterCampaign = campaign.campaignPlayers.find(
+    (player) => player.isOwner
+  );
+
+  if (masterCampaign.user.id !== idUser) {
     throw new AppError("You dont have permission", 403);
   }
 
