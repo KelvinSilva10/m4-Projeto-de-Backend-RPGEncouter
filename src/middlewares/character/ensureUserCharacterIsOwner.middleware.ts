@@ -22,12 +22,10 @@ const ensureUserCharacterIsOwner = async (
   });
   const userId: string = req.user.id;
 
-  if (!character.isActive) {
-    throw new AppError("character not found", 403);
-  }
+ 
 
   if (findCharacter.user.id !== userId) {
-    throw new AppError("character not found", 403);
+    throw new AppError("You dont have permission", 401);
   }
 
   return next();

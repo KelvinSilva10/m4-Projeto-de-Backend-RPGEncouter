@@ -1,4 +1,4 @@
-import { IUser } from "./../users/index";
+import { IUser, IUserResponse } from "./../users/index";
 
 export interface ICharacterRequest {
   name: string;
@@ -15,7 +15,6 @@ export interface ICharacterResponse {
   class: string;
   background: string;
   level: number;
-  createdAt: Date;
+  createdAt: string;
   isActive: boolean;
-  user: IUser;
 }
