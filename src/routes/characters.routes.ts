@@ -5,33 +5,33 @@ import {
   getCharacterController,
 } from "../controllers/characters.controllers";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
-import ensureUserHasCharacter from "../middlewares/character/ensureUserHasCharacter.middleware";
-import ensureCharacterAlreadyExists from "./../middlewares/character/ensureCharacterAlreadyExists.middleware";
-import ensureUserCharacterIsOwner from "./../middlewares/character/ensureUserCharacterIsOwner.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 import { characterSerializer } from "../serializers/character.schemas";
+import ensureUserHasCharacterMiddleware from "../middlewares/character/ensureUserHasCharacter.middleware";
+import ensureCharacterAlreadyExistsMiddleware from "./../middlewares/character/ensureCharacterAlreadyExists.middleware";
+import ensureUserCharacterIsOwnerMiddleware from "./../middlewares/character/ensureUserCharacterIsOwner.middleware";
 
 const charactersRoute = Router();
 
 charactersRoute.post(
   "",
   ensureAuthMiddleware,
-  ensureUserHasCharacter,
+  ensureUserHasCharacterMiddleware,
   ensureDataIsValidMiddleware(characterSerializer),
   createCharacterController
 );
 charactersRoute.get(
   "/:id",
   ensureAuthMiddleware,
-  ensureCharacterAlreadyExists,
-  ensureUserCharacterIsOwner,
+  ensureCharacterAlreadyExistsMiddleware,
+  ensureUserCharacterIsOwnerMiddleware,
   getCharacterController
 );
 charactersRoute.delete(
   "/:id",
   ensureAuthMiddleware,
-  ensureCharacterAlreadyExists,
-  ensureUserCharacterIsOwner,
+  ensureCharacterAlreadyExistsMiddleware,
+  ensureUserCharacterIsOwnerMiddleware,
   deleteCharacterController
 );
 

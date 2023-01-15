@@ -6,23 +6,37 @@ import Character from "./../../entities/character.entity";
 import { IFriendResponse } from "./../../interfaces/friends/friends.interfaces";
 
 const createFriendService = async (
-  nick: string,
+  friendNick: string,
   idUser: string
-): Promise<IFriendResponse> => {
+): Promise<{}> => {
   const friendRepo = AppDataSource.getRepository(Friend);
   const userRepo = AppDataSource.getRepository(User);
   const user = await userRepo.findOneBy({ id: idUser });
-  const nickUser = await userRepo.findOneBy({ nick: nick });
 
-  const friend = nickUser.id;
+  const friend = await friendRepo
+    .createQueryBuilder("friends")
+    .innerJoinAndSelect("friends.user", "user")
+    .where("friends.nick = :nick", { nick: friendNick })
+    .andWhere("user.id = :id", { id: idUser })
+    .select("friends")
+    .getOne();
+
+  if (friend) {
+    if (friend.isActive) {
+      throw new AppError("You are already friends", 409);
+    } else {
+      friend.isActive = true;
+      await friendRepo.save(friend);
+      return { message: "friend add" };
+    }
+  }
 
   const newFriend = friendRepo.create({
-    nick: nick,
+    nick: friendNick,
     user: user,
-    id: friend,
   });
   await friendRepo.save(newFriend);
-  return newFriend;
+  return { message: "friend add" };
 };
 
 export default createFriendService;

@@ -11,8 +11,11 @@ import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middle
 
 import ensureUserAlreadyExistsMiddleware from "../middlewares/users/ensureUserAlreadyExists.middleware";
 import ensureUserExistsMiddleware from "../middlewares/users/ensureUserExists.middleware";
-import ensureUserIsActive from "../middlewares/users/ensureUserIsActive.middleware";
-import { userSerializer } from "../serializers/user.schemas";
+import ensureUserIsActiveMiddleware from "../middlewares/users/ensureUserIsActive.middleware";
+import {
+  userSerializer,
+  userUpdateSerializer,
+} from "../serializers/user.schemas";
 
 const userRoutes = Router();
 
@@ -27,15 +30,22 @@ userRoutes.get(
   "/:id",
   ensureAuthMiddleware,
   ensureUserExistsMiddleware,
-  ensureUserIsActive,
+  ensureUserIsActiveMiddleware,
   getUserController
 );
-userRoutes.patch("/:id", ensureAuthMiddleware, updateUserController);
+userRoutes.patch(
+  "/:id",
+  ensureAuthMiddleware,
+  ensureUserExistsMiddleware,
+  ensureUserIsActiveMiddleware,
+  ensureDataIsValidMiddleware(userUpdateSerializer),
+  updateUserController
+);
 userRoutes.delete(
   "/:id",
   ensureAuthMiddleware,
   ensureUserExistsMiddleware,
-  ensureUserIsActive,
+  ensureUserIsActiveMiddleware,
   deleteUserController
 );
 

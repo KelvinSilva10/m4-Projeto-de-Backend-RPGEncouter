@@ -4,7 +4,7 @@ import { AppError } from "../../errors/AppError";
 import Character from "../../entities/character.entity";
 import { User } from "../../entities/user.entity";
 
-const ensureUserHasCharacter = async (
+const ensureUserHasCharacterMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -30,4 +30,4 @@ const ensureUserHasCharacter = async (
   return next();
 };
 
-export default ensureUserHasCharacter;
+export default ensureUserHasCharacterMiddleware;
