@@ -6,7 +6,6 @@ import {
 } from "../controllers/friends.controllers";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
-import ensureIsFriendMiddleware from "../middlewares/friend/ensureIsFriend.middleware";
 import ensureNickExistsMiddleware from "../middlewares/friend/ensureUserAndFriendExists.middleware";
 import { friendSerializer } from "../serializers/friend.schemas";
 

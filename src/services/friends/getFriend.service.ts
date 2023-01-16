@@ -6,7 +6,6 @@ const getFriendService = async (userId: string) => {
 
   const friends = await friendsRepo
     .createQueryBuilder("friends")
-    // .innerJoinAndSelect("users.friends", "friends")
     .where("friends.user = :id", { id: userId })
     .andWhere("friends.isActive = true")
     .getMany();

@@ -1,15 +1,9 @@
 import {
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
   Entity,
-  BeforeUpdate,
-  BeforeInsert,
-  OneToMany,
   JoinColumn,
   ManyToOne,
-  OneToOne,
 } from "typeorm";
 import { Campaign } from "./campaign.entity";
 import { User } from "./user.entity";

@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import AppDataSource from "../../data-source";
-import Friend from "../../entities/friends.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
