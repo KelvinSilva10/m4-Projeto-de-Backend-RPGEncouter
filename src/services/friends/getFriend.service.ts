@@ -1,9 +1,7 @@
 import Friend from "../../entities/friends.entity";
-import { User } from "../../entities/user.entity";
 import AppDataSource from "./../../data-source";
 
 const getFriendService = async (userId: string) => {
-  const userRepo = AppDataSource.getRepository(User);
   const friendsRepo = AppDataSource.getRepository(Friend);
 
   const friends = await friendsRepo

@@ -1,7 +1,6 @@
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
-import { AppError } from "../../errors/AppError";
-import { IUser, IUserResponse } from "../../interfaces/users";
+import { IUserResponse } from "../../interfaces/users";
 
 const listUsersService = async (): Promise<IUserResponse[]> => {
   const userRepository = AppDataSource.getRepository(User);
@@ -19,8 +18,6 @@ const listUsersService = async (): Promise<IUserResponse[]> => {
     const { password, ...notPassWord } = user;
     return notPassWord;
   });
-
-  //FAZER YUP RETIRANDO O PASSWORD! --GUILHERME
 
   return usersNotPassword;
 };
