@@ -3,8 +3,6 @@ import { Campaign } from "../../entities/campaign.entity";
 import { User } from "../../entities/user.entity";
 import { UserCampaign } from "../../entities/userCampaign.entity";
 import { AppError } from "../../errors/AppError";
-import { ICampaignRequest } from "../../interfaces/campaign";
-import campaignRoutes from "./../../routes/campaigns.routes";
 
 const newPlayerCampaignService = async (
   idCampaign: string,
