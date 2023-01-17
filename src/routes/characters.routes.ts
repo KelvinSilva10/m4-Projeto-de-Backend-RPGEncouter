@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createCharacterController,
   deleteCharacterController,
+  getCharacterAllController,
   getCharacterController,
 } from "../controllers/characters.controllers";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
@@ -27,6 +28,8 @@ charactersRoute.get(
   ensureUserCharacterIsOwnerMiddleware,
   getCharacterController
 );
+
+charactersRoute.get("", ensureAuthMiddleware, getCharacterAllController);
 charactersRoute.delete(
   "/:id",
   ensureAuthMiddleware,

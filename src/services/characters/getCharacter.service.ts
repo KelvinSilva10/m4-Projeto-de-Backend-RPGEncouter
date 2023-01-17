@@ -5,7 +5,6 @@ const getCharacterService = async (
   userId: string,
   characterId: string
 ): Promise<{}> => {
-  //CÓDIGO AQUI
   const characterRepo = AppDataSource.getRepository(Character);
 
   const character = await characterRepo.findOneBy({ id: characterId });

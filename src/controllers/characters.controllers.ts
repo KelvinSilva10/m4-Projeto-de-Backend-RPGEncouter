@@ -3,6 +3,7 @@ import { ICharacterRequest } from "../interfaces/characters";
 import createCharacterService from "../services/characters/createCharacter.service";
 import getCharacterService from "../services/characters/getCharacter.service";
 import deleteCharacterService from "./../services/characters/deleteCharacter.service";
+import getCharacterAllService from "./../services/characters/getCharacterAll.service";
 
 const createCharacterController = async (req: Request, res: Response) => {
   const characterData: ICharacterRequest = req.body;
@@ -19,6 +20,12 @@ const getCharacterController = async (req: Request, res: Response) => {
   return res.status(200).json(character);
 };
 
+const getCharacterAllController = async (req: Request, res: Response) => {
+  const userId: string = req.user.id;
+
+  const character = await getCharacterAllService(userId);
+  return res.status(200).json(character);
+};
 const deleteCharacterController = async (req: Request, res: Response) => {
   const characterId: string = req.params.id;
   const userId: string = req.user.id;
@@ -30,4 +37,5 @@ export {
   createCharacterController,
   getCharacterController,
   deleteCharacterController,
+  getCharacterAllController,
 };
