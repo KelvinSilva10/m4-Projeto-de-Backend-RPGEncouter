@@ -39,7 +39,7 @@ Diagrama ER da API definindo bem as relações entre as tabelas do banco de dado
 ## 3. Documentação
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
-Link com a **[Documentação](https://projeto-m4-kmjie56uq-gabriellarangeira.vercel.app/)**
+Link com a **[Documentação](https://projeto-m4.vercel.app/)**
 
 ## 4. Rodando localmente
 [ Voltar para o topo ](#tabela-de-conteúdos)
