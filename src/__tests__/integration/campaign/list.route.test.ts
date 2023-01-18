@@ -3,9 +3,7 @@ import { DataSource, Repository } from "typeorm";
 import app from "../../../app";
 import { Campaign } from "../../../entities/campaign.entity";
 import AppDataSource from "../../../data-source";
-import { User } from "../../../entities/user.entity";
-import { mockedUsersListRequest } from "../mocks/integration/user.mock";
-import { mockedCampaignRequest } from "../mocks/integration/campaign.mock";
+
 
 describe("list campaign successfully", () => {
   let connetion: DataSource;
@@ -24,6 +22,7 @@ describe("list campaign successfully", () => {
   beforeEach(async () => {
     const campaign = await campaignRepo.find();
     await campaignRepo.remove(campaign);
+
   });
 
   afterAll(async () => {

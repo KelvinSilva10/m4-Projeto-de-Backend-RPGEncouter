@@ -5,6 +5,7 @@ import { Campaign } from "../../../entities/campaign.entity";
 import AppDataSource from "../../../data-source";
 import {
   mockedCampaign,
+
 } from "../mocks/integration/campaign.mock";
 import { User } from "../../../entities/user.entity";
 import { mockedUsersListRequest } from "../mocks/integration/user.mock";
@@ -26,6 +27,7 @@ describe("list campaign successfully", () => {
   beforeEach(async () => {
     const campaign = await campaignRepo.find();
     await campaignRepo.remove(campaign);
+
   });
 
   afterAll(async () => {

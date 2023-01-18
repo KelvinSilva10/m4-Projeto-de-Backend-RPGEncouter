@@ -3,16 +3,13 @@ import { DataSource, Repository } from "typeorm";
 import app from "../../../app";
 import { Campaign } from "../../../entities/campaign.entity";
 import AppDataSource from "../../../data-source";
-import { User } from "../../../entities/user.entity";
-import { mockedUsersListRequest } from "../mocks/integration/user.mock";
-import { UserCampaign } from "../../../entities/userCampaign.entity";
-import { mockedCampaignRequest } from "../mocks/integration/campaign.mock";
 
 describe("create campaign route test", () => {
   let connetion: DataSource;
   const baseUrl: string = "/campaign";
   const campaignRepo: Repository<Campaign> =
     AppDataSource.getRepository(Campaign);
+
 
   const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
@@ -80,4 +77,5 @@ describe("create campaign route test", () => {
     expect(response.status).toBe(expectedResults.status);
     expect(response.body).toEqual(expect.objectContaining({}));
   });
+
 });
