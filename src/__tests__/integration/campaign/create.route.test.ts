@@ -7,11 +7,13 @@ import { mockedCampaignRequest } from "../mocks/integration/campaign.mock";
 import { User } from "../../../entities/user.entity";
 import { mockedUsersListRequest } from "../mocks/integration/user.mock";
 
+
 describe("create campaign route test", () => {
   let connetion: DataSource;
   const baseUrl: string = "/campaign";
   const campaignRepo: Repository<Campaign> =
     AppDataSource.getRepository(Campaign);
+
 
   const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
@@ -60,6 +62,7 @@ describe("create campaign route test", () => {
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
         isActive: expect.any(Boolean),
+
       })
     );
   });

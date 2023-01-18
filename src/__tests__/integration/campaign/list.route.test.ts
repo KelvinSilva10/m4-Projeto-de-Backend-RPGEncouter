@@ -3,7 +3,6 @@ import { DataSource, Repository } from "typeorm";
 import app from "../../../app";
 import { Campaign } from "../../../entities/campaign.entity";
 import AppDataSource from "../../../data-source";
-import { mockedCampaignRequest } from "../mocks/integration/campaign.mock";
 import { User } from "../../../entities/user.entity";
 import { mockedUsersListRequest } from "../mocks/integration/user.mock";
 

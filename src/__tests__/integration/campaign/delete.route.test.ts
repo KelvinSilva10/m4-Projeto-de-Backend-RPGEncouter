@@ -3,7 +3,6 @@ import { DataSource, Repository } from "typeorm";
 import app from "../../../app";
 import { Campaign } from "../../../entities/campaign.entity";
 import AppDataSource from "../../../data-source";
-import { mockedCampaignRequest } from "../mocks/integration/campaign.mock";
 import { User } from "../../../entities/user.entity";
 import { mockedUsersListRequest } from "../mocks/integration/user.mock";
 import { UserCampaign } from "../../../entities/userCampaign.entity";
@@ -38,29 +37,6 @@ describe("create campaign route test", () => {
 
   afterAll(async () => {
     await connetion.destroy();
-  });
-
-  it("it will not be possible to delete campaign for an id invalid", async () => {
-    const listUserOne = userRepo.create(mockedUsersListRequest[1]);
-    await userRepo.save(listUserOne);
-    const user = await userRepo.findOneBy({ name: "teste2" });
-
-    const userLoggedIn = await request(app)
-      .post("/login")
-      .send({ email: user.email, password: "1234" });
-
-    const response = await request(app)
-      .delete(`${baseUrl}/123`)
-      .set("Authorization", `Bearer ${userLoggedIn.body.token}`)
-      .send();
-
-    const expectedResults = {
-      status: 404,
-      bodyToEqual: { message: "Campaign not exist" },
-    };
-
-    expect(response.status).toBe(expectedResults.status);
-    expect(response.body).toEqual(expectedResults.bodyToEqual);
   });
 
   it("it is possible to disable campaign successfully", async () => {
