@@ -72,7 +72,6 @@ describe("create login route test", () => {
       status: 403,
       message: { message: "User or password invalid" },
     };
-    console.log(response.body);
     expect(response.status).toBe(expectedResult.status);
     expect(response.body).toEqual(expectedResult.message);
   });
