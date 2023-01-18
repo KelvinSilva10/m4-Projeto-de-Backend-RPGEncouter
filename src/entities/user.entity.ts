@@ -8,10 +8,7 @@ import {
   BeforeUpdate,
   BeforeInsert,
   OneToMany,
-  JoinColumn,
-  OneToOne,
 } from "typeorm";
-import { Campaign } from "./campaign.entity";
 import { UserCampaign } from "./userCampaign.entity";
 import Friend from "./friends.entity";
 import Character from "./character.entity";
@@ -55,7 +52,7 @@ class User {
   friends: Friend[];
 
   @OneToMany(() => Character, (character) => character.user)
-  character: Character;
+  character: Character[];
 
   @BeforeUpdate()
   @BeforeInsert()

@@ -1,14 +1,16 @@
 import { User } from "../../entities/user.entity";
+import { characterResponseSerializer } from "../../serializers/character.schemas";
 import AppDataSource from "./../../data-source";
 import Character from "./../../entities/character.entity";
-import { ICharacterRequest } from "./../../interfaces/characters/index";
+import {
+  ICharacterRequest,
+  ICharacterResponse,
+} from "./../../interfaces/characters/index";
 
 const createCharacterService = async (
   characterData: ICharacterRequest,
   userId: string
-): Promise<Character> => {
-  //CÓDIGO AQUI
-
+): Promise<ICharacterResponse> => {
   const characterRepo = AppDataSource.getRepository(Character);
   const userRepo = AppDataSource.getRepository(User);
   const user = await userRepo.findOneBy({ id: userId });
@@ -19,7 +21,14 @@ const createCharacterService = async (
   });
   await characterRepo.save(createdCharacter);
 
-  return createdCharacter;
+  const characterResponse = await characterResponseSerializer.validate(
+    createdCharacter,
+    {
+      stripUnknown: true,
+    }
+  );
+
+  return characterResponse;
 };
 
 export default createCharacterService;

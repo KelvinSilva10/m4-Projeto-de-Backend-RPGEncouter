@@ -2,36 +2,39 @@ import Friend from "../../entities/friends.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 import AppDataSource from "./../../data-source";
-import Character from "./../../entities/character.entity";
-import { IFriendResponse } from "./../../interfaces/friends/friends.interfaces";
 
 const createFriendService = async (
-  nick: string,
+  friendNick: string,
   idUser: string
-  // friendId: string
-): Promise<IFriendResponse> => {
+): Promise<{}> => {
   const friendRepo = AppDataSource.getRepository(Friend);
   const userRepo = AppDataSource.getRepository(User);
   const user = await userRepo.findOneBy({ id: idUser });
-  const nikeUser = await userRepo.findOneBy({ nick: nick });
 
-  if (!nikeUser) {
-    throw new AppError("user not found", 403);
-  }
+  const friend = await friendRepo
+    .createQueryBuilder("friends")
+    .innerJoinAndSelect("friends.user", "user")
+    .where("friends.nick = :nick", { nick: friendNick })
+    .andWhere("user.id = :id", { id: idUser })
+    .select("friends")
+    .getOne();
 
-  const friend = nikeUser.id;
-
-  if (!user) {
-    throw new AppError("user not found!", 403);
+  if (friend) {
+    if (friend.isActive) {
+      throw new AppError("You are already friends", 409);
+    } else {
+      friend.isActive = true;
+      await friendRepo.save(friend);
+      return { message: "friend add" };
+    }
   }
 
   const newFriend = friendRepo.create({
-    nick: nick,
+    nick: friendNick,
     user: user,
-    id: friend,
   });
   await friendRepo.save(newFriend);
-  return newFriend;
+  return { message: "friend add" };
 };
 
 export default createFriendService;

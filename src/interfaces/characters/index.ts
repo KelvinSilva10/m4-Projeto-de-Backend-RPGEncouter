@@ -1,5 +1,3 @@
-import { IUser } from "./../users/index";
-
 export interface ICharacterRequest {
   name: string;
   race: string;
@@ -15,7 +13,6 @@ export interface ICharacterResponse {
   class: string;
   background: string;
   level: number;
-  createdAt: Date;
+  createdAt: string;
   isActive: boolean;
-  user: IUser;
 }

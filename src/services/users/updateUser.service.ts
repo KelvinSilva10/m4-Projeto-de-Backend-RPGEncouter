@@ -11,9 +11,17 @@ const updateUserService = async (
 ) => {
   const userRepository = AppDataSource.getRepository(User);
 
+  if (userId !== userIdParams) {
+    throw new AppError("You do not have permission to change other user", 403);
+  }
+
   const findUser = await userRepository.findOneBy({
     id: userIdParams,
   });
+
+  if (userId !== userIdParams) {
+    throw new AppError("You do not have permission to change other user", 403);
+  }
 
   const updateUser = userRepository.create({
     ...findUser,

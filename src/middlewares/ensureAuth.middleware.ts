@@ -20,12 +20,13 @@ const ensureAuthMiddleware = async (
   jwt.verify(token, process.env.SECRET_KEY, (error, decoded: any) => {
     if (error) {
       return res.status(401).json({
-        message: error.message,
+        message: error,
       });
     }
 
     req.user = {
       id: decoded.sub as string,
+      isActive: decoded.isActive,
     };
 
     return next();

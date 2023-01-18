@@ -9,6 +9,9 @@ class Friend {
   @Column()
   nick: string;
 
+  @Column({ default: true })
+  isActive: boolean;
+
   @ManyToOne(() => User, (user) => user.friends)
   user: User;
 }

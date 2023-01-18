@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import AppDataSource from "../data-source";
-import { User } from "../entities/user.entity";
+import AppDataSource from "../../data-source";
+import { User } from "../../entities/user.entity";
 import validate from "uuid-validate";
-import { AppError } from "../errors/AppError";
+import { AppError } from "../../errors/AppError";
 
 const ensureUserExistsMiddleware = async (
   req: Request,
@@ -10,10 +10,9 @@ const ensureUserExistsMiddleware = async (
   next: NextFunction
 ) => {
   if (!validate(req.params.id)) {
-    return res.status(404).json({
-      message: "user not exist !",
-    });
+    throw new AppError("User not exist", 404);
   }
+
   const userRepository = AppDataSource.getRepository(User);
 
   const findUser = await userRepository.findOneBy({
@@ -21,12 +20,10 @@ const ensureUserExistsMiddleware = async (
   });
 
   if (!findUser) {
-    return res.status(404).json({
-      message: "user not exist !",
-    });
+    throw new AppError("User not exist", 404);
   }
 
-  return next();
+  next();
 };
 
 export default ensureUserExistsMiddleware;

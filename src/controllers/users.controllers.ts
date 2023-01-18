@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
-import { AppError } from "../errors/AppError";
 import { IUserRequest, IUserUpdateRequest } from "../interfaces/users";
 import createUserService from "../services/users/createUser.service";
 import deleteUserService from "../services/users/deleteUser.service";
-import listCampaignsCreateByUserService from "../services/users/listCampaignsCreateByUser.service";
-import listCampaignsPlayedByUserService from "../services/users/listCampaignsPlayedByUser.service";
+import getUserService from "../services/users/getUser.service";
 import listUsersService from "../services/users/listUsers.service";
 import updateUserService from "../services/users/updateUser.service";
 
@@ -20,8 +18,17 @@ const listUsersController = async (req: Request, res: Response) => {
   return res.json(users);
 };
 
+const getUserController = async (req: Request, res: Response) => {
+  const idUser = req.params.id;
+  const users = await getUserService(idUser);
+
+  return res.json(users);
+};
+
 const deleteUserController = async (req: Request, res: Response) => {
-  await deleteUserService(req.params.id);
+  const idUserDelete = req.params.id;
+  const idUser = req.user.id;
+  await deleteUserService(idUserDelete, idUser);
   return res.status(204).json({});
 };
 
@@ -35,29 +42,10 @@ const updateUserController = async (req: Request, res: Response) => {
   return res.json(updateUser);
 };
 
-const listCampaignsCreateByUserController = async (
-  req: Request,
-  res: Response
-) => {
-  const users = await listCampaignsCreateByUserService();
-
-  return res.json(users);
-};
-
-const listCampaignsPlayedByUserController = async (
-  req: Request,
-  res: Response
-) => {
-  const users = await listCampaignsPlayedByUserService();
-
-  return res.json(users);
-};
-
 export {
   createUserController,
   listUsersController,
   deleteUserController,
   updateUserController,
-  listCampaignsCreateByUserController,
-  listCampaignsPlayedByUserController,
+  getUserController,
 };

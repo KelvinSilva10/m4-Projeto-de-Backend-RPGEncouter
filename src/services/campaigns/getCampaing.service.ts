@@ -10,7 +10,12 @@ const getCampaignService = async (id: string): Promise<ICampaignResponse> => {
     .innerJoinAndSelect("campaigns.campaignPlayers", "campaignPlayers")
     .innerJoinAndSelect("campaignPlayers.user", "user")
     .where("campaigns.id = :id", { id: id })
-    .select()
+    .select("campaigns")
+    .addSelect("campaignPlayers")
+    .addSelect("user.id")
+    .addSelect("user.name")
+    .addSelect("user.nick")
+    .andWhere("user.isActive = true")
     .getOne();
 
   return campaign;

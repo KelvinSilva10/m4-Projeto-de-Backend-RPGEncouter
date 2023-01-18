@@ -4,15 +4,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Entity,
-  BeforeUpdate,
-  BeforeInsert,
   OneToMany,
   JoinColumn,
-  ManyToOne,
-  OneToOne,
 } from "typeorm";
 import { UserCampaign } from "./userCampaign.entity";
-import { User } from "./user.entity";
 
 @Entity("campaigns")
 class Campaign {
