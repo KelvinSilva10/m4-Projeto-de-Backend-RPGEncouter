@@ -1,15 +1,15 @@
 import request from "supertest";
 import { DataSource, Repository } from "typeorm";
-import app from "../../app";
-import { Campaign } from "../../entities/campaign.entity";
-import AppDataSource from "../../data-source";
+import app from "../../../app";
+import { Campaign } from "../../../entities/campaign.entity";
+import AppDataSource from "../../../data-source";
 import {
   mockedCampaign,
   mockedCampaignRequest,
-} from "../integration/mocks/integration/campaign.mock";
-import { User } from "../../entities/user.entity";
-import { mockedUsersListRequest } from "../integration/mocks/integration/user.mock";
-import { UserCampaign } from "../../entities/userCampaign.entity";
+} from "../mocks/integration/campaign.mock";
+import { User } from "../../../entities/user.entity";
+import { mockedUsersListRequest } from "../mocks/integration/user.mock";
+import { UserCampaign } from "../../../entities/userCampaign.entity";
 
 describe("create campaign route test", () => {
   let connetion: DataSource;
