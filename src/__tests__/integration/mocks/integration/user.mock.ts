@@ -56,9 +56,17 @@ const mockedUsersListResponse = [
   },
 ];
 
+const mockedUserNotActiveRequest = {
+  name: "teste",
+  nick: "nickTest",
+  email: "teste@mail.com",
+  password: "1234",
+};
+
 export {
   mockedUserRequest,
   mockedUserInvalidBodyRequest,
   mockedUsersListRequest,
   mockedUsersListResponse,
+  mockedUserNotActiveRequest,
 };

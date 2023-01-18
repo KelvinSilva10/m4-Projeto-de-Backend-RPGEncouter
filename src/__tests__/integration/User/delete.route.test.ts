@@ -8,7 +8,7 @@ import {
   mockedUsersListRequest,
 } from "../mocks/integration/user.mock";
 
-describe("Edit user route tests", () => {
+describe("Delete user route tests", () => {
   let conn: DataSource;
   const baseUrl: string = "/users";
   const userRepo: Repository<User> = AppDataSource.getRepository(User);
@@ -28,7 +28,7 @@ describe("Edit user route tests", () => {
     await conn.destroy;
   });
 
-  it("Should be able to edit an user", async () => {
+  it("Should be able to delete an user", async () => {
     const listUser1 = userRepo.create(mockedUsersListRequest[0]);
     await userRepo.save(listUser1);
     const user = await userRepo.findOneBy({ nick: "nickTest1" });
@@ -38,43 +38,30 @@ describe("Edit user route tests", () => {
       .send({ email: user.email, password: "1234" });
 
     const response = await request(app)
-      .patch(`${baseUrl}/${user.id}`)
+      .delete(`${baseUrl}/${user.id}`)
       .set("Authorization", `Bearer ${userloggedIn.body.token}`)
-      .send({ nick: "nickTest1Edited" });
+      .send();
 
     const expectedResults = {
-      status: 200,
+      status: 204,
     };
 
     expect(response.status).toBe(expectedResults.status);
-    expect(response.body).toEqual(
-      expect.objectContaining({
-        id: expect.any(String),
-        name: expect.any(String),
-        nick: expect.any(String),
-        email: expect.any(String),
-        createdAt: expect.any(String),
-        updatedAt: expect.any(String),
-        isActive: expect.any(Boolean),
-        profileImg: expect.any(String),
-      })
-    );
+    expect(response.body).toEqual(expect.objectContaining({}));
     expect(response.body).not.toEqual(
       expect.objectContaining({ password: expect.any(String) })
     );
-
-    const [userEdited, amount] = await userRepo.findAndCount();
-    expect(amount).toBe(1);
+    expect(response.body).not.toEqual(
+      expect.objectContaining({ id: expect.any(String) })
+    );
   });
 
-  it("Should not be able to edit an user with missing token", async () => {
+  it("Should not be able to delete an user with missing token", async () => {
     const listUser1 = userRepo.create(mockedUsersListRequest[0]);
     await userRepo.save(listUser1);
     const user = await userRepo.findOneBy({ nick: "nickTest1" });
 
-    const response = await request(app)
-      .patch(`${baseUrl}/${user.id}`)
-      .send({ nick: "nickTest1Edited" });
+    const response = await request(app).delete(`${baseUrl}/${user.id}`).send();
 
     const expectedResponse = {
       status: 401,
@@ -85,7 +72,7 @@ describe("Edit user route tests", () => {
     expect(response.body).toStrictEqual(expectedResponse.bodyToEqual);
   });
 
-  it("Should not be able to edit an user that doesn't exists", async () => {
+  it("Should not be able to delete an user that doesn't exists", async () => {
     const listUser1 = userRepo.create(mockedUsersListRequest[0]);
     await userRepo.save(listUser1);
     const user = await userRepo.findOneBy({ nick: "nickTest1" });
@@ -95,9 +82,9 @@ describe("Edit user route tests", () => {
       .send({ email: user.email, password: "1234" });
 
     const response = await request(app)
-      .patch(`${baseUrl}/notValidId`)
+      .delete(`${baseUrl}/notValidId`)
       .set("Authorization", `Bearer ${userloggedIn.body.token}`)
-      .send({ nick: "nickTest1Edited" });
+      .send();
 
     const expectedResponse = {
       status: 404,
@@ -108,7 +95,7 @@ describe("Edit user route tests", () => {
     expect(response.body).toStrictEqual(expectedResponse.bodyToEqual);
   });
 
-  it("Should not be able to edit an user not active", async () => {
+  it("Should not be able to delete an user not active", async () => {
     const userNotActive = userRepo.create(mockedUserNotActiveRequest);
     await userRepo.save(userNotActive);
     const findUserNotActive = await userRepo.findOneBy({ nick: "nickTest" });
@@ -131,9 +118,9 @@ describe("Edit user route tests", () => {
       .send({ email: findUserActive.email, password: "1234" });
 
     const response = await request(app)
-      .patch(`${baseUrl}/${findUserNotActive.id}`)
+      .delete(`${baseUrl}/${findUserNotActive.id}`)
       .set("Authorization", `Bearer ${userloggedInActive.body.token}`)
-      .send({ nick: "nickTestActive" });
+      .send();
 
     const expectedResponse = {
       status: 404,
