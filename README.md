@@ -66,3 +66,4 @@ Execute as migrations com o comando:
 ```bash
   yarn typeorm migration:run -d src/data-source.ts
 ```
+
