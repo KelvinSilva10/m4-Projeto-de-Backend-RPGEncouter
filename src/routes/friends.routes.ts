@@ -24,7 +24,6 @@ friendsRoute.delete(
   ensureAuthMiddleware,
   ensureDataIsValidMiddleware(friendSerializer),
   ensureNickExistsMiddleware,
-  // ensureIsFriendMiddleware,
   deleteFriendController
 );
 
