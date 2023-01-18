@@ -1,14 +1,14 @@
 import request from "supertest";
 import { DataSource, Repository } from "typeorm";
-import app from "../../app";
-import { Campaign } from "../../entities/campaign.entity";
-import AppDataSource from "../../data-source";
+import app from "../../../app";
+import { Campaign } from "../../../entities/campaign.entity";
+import AppDataSource from "../../../data-source";
 import {
   mockedCampaign,
   mockedCampaignRequest,
-} from "../integration/mocks/integration/campaign.mock";
-import { User } from "../../entities/user.entity";
-import { mockedUsersListRequest } from "../integration/mocks/integration/user.mock";
+} from "../mocks/integration/campaign.mock";
+import { User } from "../../../entities/user.entity";
+import { mockedUsersListRequest } from "../mocks/integration/user.mock";
 
 describe("list campaign successfully", () => {
   let connetion: DataSource;
@@ -43,10 +43,13 @@ describe("list campaign successfully", () => {
       .post("/login")
       .send({ email: user.email, password: "1234" });
 
+    const campaign = campaignRepo.create(mockedCampaign);
+    const newCampaign = await campaignRepo.save(campaign);
+
     const response = await request(app)
-      .get(baseUrl)
+      .get(`${baseUrl}/${newCampaign.id}`)
       .set("Authorization", `Bearer ${userLoggedIn.body.token}`)
-      .send(mockedCampaignRequest);
+      .send();
 
     const expectedResults = {
       status: 200,
