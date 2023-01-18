@@ -14,11 +14,11 @@ const ensureUserAlreadyExistsMiddleware = async (
   const userByNick = await userRepository.findOneBy({ nick: req.body.nick });
 
   if (user) {
-    throw new AppError("This email already exists", 401);
+    throw new AppError("This email already exists", 409);
   }
 
   if (userByNick) {
-    throw new AppError("This nick already exists", 401);
+    throw new AppError("This nick already exists", 409);
   }
 
   next();
