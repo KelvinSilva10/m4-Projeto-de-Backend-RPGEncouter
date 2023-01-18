@@ -5,6 +5,7 @@ import { Campaign } from "../../../entities/campaign.entity";
 import AppDataSource from "../../../data-source";
 import { User } from "../../../entities/user.entity";
 import { mockedUsersListRequest } from "../mocks/integration/user.mock";
+import { mockedCampaignRequest } from "../mocks/integration/campaign.mock";
 
 describe("list campaign successfully", () => {
   let connetion: DataSource;

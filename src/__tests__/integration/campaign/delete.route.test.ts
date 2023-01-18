@@ -6,6 +6,7 @@ import AppDataSource from "../../../data-source";
 import { User } from "../../../entities/user.entity";
 import { mockedUsersListRequest } from "../mocks/integration/user.mock";
 import { UserCampaign } from "../../../entities/userCampaign.entity";
+import { mockedCampaignRequest } from "../mocks/integration/campaign.mock";
 
 describe("create campaign route test", () => {
   let connetion: DataSource;
