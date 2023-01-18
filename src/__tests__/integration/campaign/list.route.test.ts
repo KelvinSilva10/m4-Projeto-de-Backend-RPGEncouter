@@ -1,14 +1,11 @@
 import request from "supertest";
 import { DataSource, Repository } from "typeorm";
-import app from "../../app";
-import { Campaign } from "../../entities/campaign.entity";
-import AppDataSource from "../../data-source";
-import {
-  mockedCampaign,
-  mockedCampaignRequest,
-} from "../integration/mocks/integration/campaign.mock";
-import { User } from "../../entities/user.entity";
-import { mockedUsersListRequest } from "../integration/mocks/integration/user.mock";
+import app from "../../../app";
+import { Campaign } from "../../../entities/campaign.entity";
+import AppDataSource from "../../../data-source";
+import { mockedCampaignRequest } from "../mocks/integration/campaign.mock";
+import { User } from "../../../entities/user.entity";
+import { mockedUsersListRequest } from "../mocks/integration/user.mock";
 
 describe("list campaign successfully", () => {
   let connetion: DataSource;
@@ -27,8 +24,6 @@ describe("list campaign successfully", () => {
   beforeEach(async () => {
     const campaign = await campaignRepo.find();
     await campaignRepo.remove(campaign);
-    // const users = await userRepo.find();
-    // await userRepo.remove(users);
   });
 
   afterAll(async () => {
@@ -43,15 +38,10 @@ describe("list campaign successfully", () => {
       .post("/login")
       .send({ email: user.email, password: "1234" });
 
-    const campaign = campaignRepo.create(mockedCampaign);
-    const newCampaign = await campaignRepo.save(campaign);
-
-    console.log("----------", newCampaign.id);
-
     const response = await request(app)
-      .get(`${baseUrl}/${newCampaign.id}`)
+      .get(baseUrl)
       .set("Authorization", `Bearer ${userLoggedIn.body.token}`)
-      .send();
+      .send(mockedCampaignRequest);
 
     const expectedResults = {
       status: 200,
