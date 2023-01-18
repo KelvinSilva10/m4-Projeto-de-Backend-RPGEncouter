@@ -5,6 +5,14 @@ export interface ICampaignRequest {
   campaignImg: string;
   plataform: string;
 }
+export interface ICampaignTest {
+  name: string;
+  description: string;
+  rpgGame: string;
+  campaignImg: string;
+  plataform: string;
+  isActive: boolean;
+}
 
 export interface ICampaignResponse {
   id: string;
