@@ -1,6 +1,5 @@
 import AppDataSource from "../../data-source";
 import { Campaign } from "../../entities/campaign.entity";
-import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
 const deleteCampaignService = async (idCampaign: string, idUser: string) => {

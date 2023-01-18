@@ -2,8 +2,6 @@ import Friend from "../../entities/friends.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 import AppDataSource from "./../../data-source";
-import Character from "./../../entities/character.entity";
-import { IFriendResponse } from "./../../interfaces/friends/friends.interfaces";
 
 const createFriendService = async (
   friendNick: string,

@@ -1,5 +1,3 @@
-import { IUser, IUserResponse } from "./../users/index";
-
 export interface ICharacterRequest {
   name: string;
   race: string;

@@ -1,7 +1,6 @@
-import { User } from "../../entities/user.entity";
+
 import AppDataSource from "../../data-source";
 import Friend from "../../entities/friends.entity";
-import { IUser, IUserResponse } from "../../interfaces/users";
 import { AppError } from "../../errors/AppError";
 
 const deleteFriendService = async (userId: string, friendNick: string) => {

@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import AppDataSource from "../../data-source";
-import Friend from "../../entities/friends.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
@@ -19,15 +18,6 @@ const ensureNickExistsMiddleware = async (
   if (!friend.isActive) {
     throw new AppError("User is not active", 404);
   }
-
-  // const verifyFriends = user.friends.find(
-  //   (friends) => friends.nick === friend.nick
-  // );
-
-  // if (verifyFriends) {
-  //   throw new AppError("You are already friends", 409);
-  // }
-
   next();
 };
 
