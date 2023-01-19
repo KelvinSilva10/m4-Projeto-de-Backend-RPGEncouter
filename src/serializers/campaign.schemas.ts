@@ -1,6 +1,5 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IUser } from "./../interfaces/users/index";
 import {
   ICampaignRequest,
   ICampaignUpdateRequest,
